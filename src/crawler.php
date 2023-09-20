@@ -15,7 +15,7 @@ $urls = [
     'https://portal.expanzo.com/',
 ];
 
-echo 'Extracting info, please wait....';
+echo 'Extracting info, please wait....', PHP_EOL;
 
 foreach ($urls as $url) {
     Crawler::create()

@@ -35,8 +35,13 @@ function saveAndNormalizeContacts(array $contacts, ?string $url){
     }
 
     foreach ($contacts as $contact) {
-        $contact = filter_var($contact, FILTER_SANITIZE_NUMBER_INT);
-        echo $contact;
-        echo PHP_EOL;
+        if ($contact) {
+            $contact = filter_var($contact, FILTER_SANITIZE_NUMBER_INT);
+            if (!str_starts_with($contact, '+')) {
+                $contact = "+" . $contact;
+            }
+            echo $contact;
+            echo PHP_EOL;
+        }
     }
 }
