@@ -15,9 +15,12 @@ function extractContacts(string $body): array
 
     $xpath = new DOMXPath($doc);
 
+    // search for nodes that matches the statements defined below
+    // a. Anchor elements that has an href attribute which contains "tel:"
+    // b. Text nodes that begins with "+" sign.
+    
     $phoneXPath = "//a[contains(@href, 'tel:')] | text()[starts-with(normalize-space(), '+')]";
 
-    // Find phone numbers and emails using XPath queries
     $phoneElements = $xpath->query($phoneXPath);
 
     // Extract and store phone numbers

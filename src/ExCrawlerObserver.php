@@ -38,7 +38,7 @@ class ExCrawlerObserver extends CrawlObserver {
     ): void
     {
         $body = $response->getBody();
-
+        
         if ($body->getSize()) {
             $extractedContacts = extractContacts($body);
             $this->contacts = array_merge($this->contacts, $extractedContacts);
@@ -63,6 +63,7 @@ class ExCrawlerObserver extends CrawlObserver {
      */
     public function finishedCrawling(): void
     {
+        // check if numbers were extracted then save/display them
         $total = count($this->contacts);
         if ($total) {
             saveAndNormalizeContacts($this->contacts, $this->url);

@@ -5,6 +5,7 @@ use JamiuJimoh\Crawler\ExCrawlerObserver;
 use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlProfiles\CrawlInternalUrls;
 
+// targeted sites
 $urls = [
     'https://www.vetropack.com/en',
     'https://www.kniha-jizd-zdarma.cz/cs/',
@@ -17,19 +18,19 @@ $urls = [
 
 echo 'Extracting info, please wait....', PHP_EOL;
 
+// Instatiate crawler for each url
 foreach ($urls as $url) {
     Crawler::create()
         ->ignoreRobots()
-        //->setParseableMimeTypes(['text/html', 'text/plain'])
-        ->setCrawlObserver(new ExCrawlerObserver())
+        ->setParseableMimeTypes(['text/html', 'text/plain'])
+        ->setCrawlObserver(new ExCrawlerObserver()) // Use custom observer script extending CrawlerObserver
         ->setCrawlProfile(new CrawlInternalUrls($url))
-        ->setMaximumResponseSize(1024 * 1024 * 5)
-        ->setConcurrency(1)
-        ->setTotalCrawlLimit(10) 
-        ->setDelayBetweenRequests(100)
+        ->setMaximumResponseSize(1024 * 1024 * 5) // Maximum response size of 5mb
+        ->setTotalCrawlLimit(10) // Maximum numbers of urls to crawl should not exceed 10
+        ->setDelayBetweenRequests(100) // wait every 100ms before each request
         ->startCrawling($url);
 }
 
-echo 'Extracting completed';
+echo 'Extraction completed';
 
 
